@@ -55,7 +55,21 @@ class TrianglesPainter(object):
             y0, y1, y2 = int(y0 * w), int(y1 * w), int(y2 * w)
             r, g, b, a = int(r * 255), int(g * 255), int(b * 255), int(a * alpha_scale * 255)
             
-            draw.polygon([(y0, x0), (y1, x1), (y2, x2)], (r, g, b, a))
+            draw.rectangle([(y0, x0), (y1, x1)], (r, g, b, a))
+            # draw.polygon([(y0, x0), (y1, x1), (y2, x2)], (r, g, b, a))
+            # draw.polygon([(y0, x0), (y1, x1), (y2, x2), (y0, x0), (y1, x1)], (r, g, b, a))
+            # draw.ellipse([(y0, x0), (y1, x1)], (r, g, b, a))
+            # draw.chord((y0, x0, y1, x1), start=30, end=330, fill=(r, g, b, a))
+            # draw.bitmap([(y0, x0), (y1, x1)], (r, g, b, a))
+            # draw.line([(y0, x0), (y1, x1), (y2, x2)], (r, g, b, a))
+            # direction = "ttb"
+            # if y2 < 0:
+            #     direction = "ltr"
+            # elif y2 > 1:
+            #     direction = "rtl"
+            # draw.text((y0, x0), 'Donald Trump', (r, g, b, a), spacing=y1, direction="ttb")
+            draw.text((y0, x0), 'Pica', (r, g, b, a), spacing=y1, direction="ttb")
+
         
         del draw
         
