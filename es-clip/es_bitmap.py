@@ -11,6 +11,7 @@ import json
 import multiprocessing as mp
 import os
 import re
+import wandb
 
 import numpy as np
 from PIL import Image
@@ -186,7 +187,7 @@ def training_loop(args):
         (
             args.report_interval,
             StoreImageHook(
-                render_fn=lambda params: painter.render(params, background='white'),
+                render_fn=lambda params: painter.render(params, background='black'),
                 save_fp=os.path.join(args.working_dir, 'animate-background=white'),
                 fps=args.fps,
                 save_interval=args.save_as_gif_interval,
@@ -243,6 +244,13 @@ def training_loop(args):
 
 
 def main():
+    enable_wandb = True
+    if enable_wandb:
+        wandb.init(
+            project="es_bitmap",
+            entity="ryok"
+        )
+
     cmd_args = parse_cmd_args()
     args = parse_args(cmd_args)
     pre_training_loop(args)
@@ -252,7 +260,11 @@ def main():
     else:
         training_loop(args)
 
+    if enable_wandb:
+        wandb.save(os.path.join(args.working_dir, 'animate-background=white.gif'))
 
 if __name__ == "__main__":
     mp.set_start_method('spawn')
     main()
+
+
